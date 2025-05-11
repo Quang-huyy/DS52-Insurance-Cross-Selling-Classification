@@ -1,0 +1,17 @@
+# Ignorer les fichiers Python compilés
+- __pycache__
++ __pycache__/
+*.pyc
+
+# Ignorer les dossiers de data temporaires
+/data/
+*.csv
+
+# Ignorer les notebooks de test
+test_*.ipynb
+
+# Environnements virtuels
+venv/
+.env
+
+/output/
