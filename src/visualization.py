@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
+from sklearn.metrics import ConfusionMatrixDisplay
 class Visualization:
     def data_overview_visualization_1(self, df: pd.DataFrame, color):
         fig, axs = plt.subplots(4, 3, figsize=(16, 20))
@@ -33,7 +33,7 @@ class Visualization:
 
         plt.tight_layout()
         plt.show()
-    
+
     def model_performance_plot(self, model_names, precision_list, recall_list):
 
         plt.figure(figsize=(8, 6))
@@ -47,3 +47,11 @@ class Visualization:
         plt.title('Precision vs Recall per Model')
         plt.grid(True)
         plt.show()
+
+    def confusion_matrix_display(self, model_names, cm):
+        for i, name in enumerate(model_names):
+            print(f"Confusion matrix of {name}")
+            disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+            disp.plot(cmap='Blues')
+            plt.title("Confusion Matrix")
+            plt.show()

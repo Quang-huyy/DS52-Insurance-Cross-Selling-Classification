@@ -18,14 +18,15 @@ class ModelRunner():
         print(f"\nTraining {name}...")
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
-        score, report = processor.analyze_result(name, y_test, y_pred)
-        print(f"\nTraining {name}... Done")
-        return (name, score, report)
+        score, report, cm = processor.analyze_result(name, y_test, y_pred)
+        print(f"Training {name}... Done")
+        return (name, score, report, cm)
     
     def run(self, X_train_scaled, X_test_scaled, y_train, y_test):
         nameList = []
         scoreList = []
         reportList = []
+        cmList = []
         processor = InsuranceDataProcessor()
         with ThreadPoolExecutor() as executor:
             futures = [
@@ -37,9 +38,10 @@ class ModelRunner():
             ]
 
             for future in futures:
-                name, score, report = future.result()
+                name, score, report, cm = future.result()
                 nameList.append(name)
                 scoreList.append(score)
                 reportList.append(report)
+                cmList.append(cm)
 
-        return nameList, scoreList, reportList
+        return nameList, scoreList, reportList, cm

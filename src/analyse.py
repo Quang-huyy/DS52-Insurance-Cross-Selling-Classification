@@ -1,5 +1,5 @@
 
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 class InsuranceDataProcessor:
 
     def analyze_dataset(self, df, title):
@@ -31,9 +31,10 @@ class InsuranceDataProcessor:
         return stats
     
     def analyze_result(self, model, y_test, y_pred):
-        # Evaluate the model
         print(f"\n{model} - Evaluating")
         score = accuracy_score(y_test, y_pred)
         report = classification_report(y_test, y_pred, output_dict=True)
-        return score, report
+        cm = confusion_matrix(y_test, y_pred)
+        return score, report, cm
+
 
